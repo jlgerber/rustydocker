@@ -33,4 +33,5 @@ RUN curl https://sh.rustup.rs -sSf | \
     sh -s -- --default-toolchain ${RUST_VERSION} -y
 
 ENV PATH=/root/.cargo/bin:$PATH
+
 #RUN rustup install ${RUST_VERSION}
