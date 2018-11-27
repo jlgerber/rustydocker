@@ -1,4 +1,4 @@
-FROM jgerber/rust:nightly-2018-11-12
+FROM jgerber/rustup:nightly-2018-11-12
 
 RUN apt-get update && \
     apt-get install --no-install-recommends -y \
@@ -9,3 +9,7 @@ RUN apt-get update && \
     python3-dev \
     python-dev
 
+RUN pip install pyo3-pack
+
+ENTRYPOINT ["pyo3-pack"]
+CMD ["build"]
