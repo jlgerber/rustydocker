@@ -1,5 +1,8 @@
 FROM ubuntu as build
-
+# set the version you want to build using
+# docker  build --build-arg RUST_VERSION==a_value
+# eg
+# docker build --build-arg RUST_VERSION=nightly-2018-11-11
 MAINTAINER Liu Chong <mail@clojure.cn>
 
 WORKDIR /root
@@ -23,10 +26,11 @@ ENV OPENSSL_LIB_DIR=/usr/local/ssl/lib \
     OPENSSL_INCLUDE_DIR=/usr/local/ssl/include \
     OPENSSL_STATIC=1
 
+ARG RUST_VERSION
+
 # install toolchain
 RUN curl https://sh.rustup.rs -sSf | \
-    sh -s -- --default-toolchain nightly -y
+    sh -s -- --default-toolchain ${RUST_VERSION} -y
 
 ENV PATH=/root/.cargo/bin:$PATH
-# ARG RUST_VERSION=nightly-2018-08-25
-# RUN rustup install ${RUST_VERSION}
+#RUN rustup install ${RUST_VERSION}
