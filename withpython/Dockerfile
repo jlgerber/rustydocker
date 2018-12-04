@@ -10,6 +10,12 @@ RUN apt-get update && \
     python-dev
 
 RUN pip install pyo3-pack
+ENV SUBCMD "build"
+ENV UID ""
+ENV GID ""
+ENTRYPOINT sh -c "pyo3-pack ${SUBCOMMAND} &&  find ./target -exec chown ${UID}:{GID} {} \;"
 
-ENTRYPOINT ["pyo3-pack"]
-CMD ["build"]
+#ENTRYPOINT sh -c "pyo3-pack ${SUBCOMMAND} && chown -R ${UID}:{GID} ."
+
+#ENTRYPOINT ["pyo3-pack"]
+#CMD ["build"]

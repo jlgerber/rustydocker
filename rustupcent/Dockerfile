@@ -32,5 +32,7 @@ RUN curl https://sh.rustup.rs -sSf | \
     sh -s -- --default-toolchain ${RUST_VERSION} -y
 
 ENV PATH=/root/.cargo/bin:$PATH
-
-#RUN rustup install ${RUST_VERSION}
+ENV UID ""
+ENV GID ""
+ENV FLAG ""
+ENTRYPOINT sh -c "cargo build ${FLAG:---release} && find ./target -exec chown ${UID}:{GID} {} \;"
