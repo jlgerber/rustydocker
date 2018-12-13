@@ -10,6 +10,7 @@ WORKDIR /root
 # common packages
 RUN yum -y update && \
     yum -y install  \
+    tar \
     ca-certificates curl file \
     build-essential make \
     autoconf automake autotools-dev libtool xutils-dev
@@ -32,5 +33,7 @@ RUN curl https://sh.rustup.rs -sSf | \
     sh -s -- --default-toolchain ${RUST_VERSION} -y
 
 ENV PATH=/root/.cargo/bin:$PATH
-RUN chmod 777 
-#RUN rustup install ${RUST_VERSION}
+ENV UID ""
+ENV GID ""
+ENV FLAG "--release"
+ENTRYPOINT sh -c "cargo build ${FLAG} && find ./target -exec chown ${UID}:${GID} {} \; 2>/dev/null" 
